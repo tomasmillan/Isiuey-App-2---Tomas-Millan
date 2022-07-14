@@ -1,0 +1,361 @@
+
+/* Resets*/
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font-family: 'Source Sans Pro', sans-serif;   
+    --primary: #193230;
+    --secondary: #31493C;
+    --text: #E8F1F2;
+    --titles: #B3EFB2;
+    --background: #0D262A;
+    --footer: #001A23;
+    --extra: #68896E;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    transition: 0.5s all;
+}
+a{
+    text-decoration: none;
+}
+.text{
+    color: var(--text);
+    font-size: 18px;
+}   
+/* Header */
+.navbar{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding: 0 2.5rem;
+    display: inherit;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--extra);
+}
+.logo{
+    text-transform: uppercase;
+    font-size: 30px;
+}
+.menuList{
+    list-style: none;
+}
+.menuList .menuItems{
+    display: inline;
+    margin-left: 1.5rem;
+}
+.menuList .menuItems .menuLinks{
+    font-size: 25px;
+    color: var(--text);
+    font-weight: 400;
+}
+.access button{
+    margin: 10px;
+    display: inline;
+    border: transparent;
+    border-radius: 15px;
+    padding: 10px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: 0.5ms all;
+    font-size: 15px;
+}
+
+
+
+/* Body */
+.container{
+    width: 100%;
+    height: 93.5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    background: linear-gradient(#001A23, #0D262A);
+}
+.asideMenu{
+    display: flex;
+    flex-basis: 25%;
+    height: 100%;
+    background: linear-gradient(#193230,#31493C);
+    flex-direction: column;
+    padding: 2rem;
+    justify-content: space-between;
+}
+.content{
+    flex-basis: 75%;
+    height: 100%;
+    width: 100%;
+}
+
+/* Aside Menu */
+.titles{
+    color: var(--titles);
+    font-weight: 600;
+    font-size: 25px;
+}
+.menuArtist{
+    display: flex;
+    flex-direction: column;
+    
+}
+ span{
+    display: flex;
+    flex-direction: row;
+    color: #68896E;
+    padding: 0 1rem;
+    cursor: pointer;
+    margin-top: 8px;
+    align-items: center;
+}
+span:hover{
+    color: #B3EFB2;
+}
+.artistImg{
+    border: 2px solid wheat;
+    width: 30px;
+    height: 30px;
+    border-radius: 25px;
+    margin-right: 1em;
+}
+.songImg{
+    border: 2px red solid;
+    width: 30px;
+    height: 30px;
+    margin-right: 1rem;
+}
+
+/* Content */
+.navContent{
+    width: 100%;
+    padding: 0.8rem 2rem;
+    display: flex;
+    flex-direction: row;
+    margin-top: 15px;
+    justify-content: space-between;
+}
+.nav{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.nav li{
+    display: inline;
+    list-style: none;
+    font-size: 20px;
+    font-weight: 400;
+    color: #68896E;
+    padding: 0 8px;
+}
+.nav li:hover{
+    color: #B3EFB2;
+    border-bottom: 2px solid #07be5c;
+    padding-bottom: 3px;
+}
+.nav li:active{
+    border-bottom: 2px solid #07be6f;
+    padding-bottom: 3px;
+}
+.search{
+    width: 100%;
+    margin: 0.5rem auto;
+    background-color: #31493C;
+    border: transparent;
+    padding: 8px 10px;
+    border-radius: 10px;
+}
+.searchContainer{
+    margin: 0.4rem 0;
+}
+
+/* Artists */
+.artist{
+    display: flex;
+    flex-flow: row;
+}
+.info{
+    flex-basis: 75%;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    padding: 5px 1.5rem;
+}
+.artist-img{
+    flex-basis: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.profile-img{
+    width: 130px;
+    height: 130px;
+    border-radius: 100px;
+    margin: 10px 0;
+    border: 3px solid white;
+}
+.actionBtn{
+    margin: 6px 1rem;
+}
+.actionBtn button{
+   border: transparent;
+   border-radius: 15px ;
+   padding: 6px 9px;
+   width: 5rem;
+   margin: 2px;
+   color: rgb(14, 14, 36);
+   font-size: 18px;
+   font-weight: bold;
+}
+.follow{
+    background: #68896E;
+}
+.play{
+    background: #E8F1F2;
+}
+.play:hover, .follow:hover{
+    background: #31493C;
+    color: #b9ffe5;
+}
+.artist-name{
+    margin: 0 1rem;
+}
+.description{
+    margin: 1rem
+}
+.popularSongs{
+    padding: 8px 1.5rem;
+    display: flex;
+    flex-flow: column;
+}
+.title{
+    margin: 0 1rem;
+    flex-basis: 10%;
+}
+.songs{
+    flex-basis: 90%;
+    margin: 1rem;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-around;
+}
+.track{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    cursor: pointer;
+}
+.song-img{
+    width: 100px;
+    height: 100px;
+}
+.song-info{
+    flex-direction: column;
+}
+.song-name, .song-artist{
+    font-size: 18px;
+    color: var(--text);
+}
+
+/* Player */
+.player{
+    height: 112px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: var(--primary);
+}
+.player-icons{
+    font-size: 35px;
+    color: #E8F1F2;
+}
+.player-info{
+    color: var(--text);
+    font-size: 18px;
+}
+.timer{
+    color: var(--text);
+    font-size: 20px;
+}
+.bar{
+    position: relative;
+    width: 35%;
+    height: 4px;
+    background-color: #31493C;
+}
+.bar2{
+    position: absolute;
+    top: 0;
+    width: 35%;
+    height: 4px;
+    background-color: #0c37e1;
+}
+.dot{
+    position: absolute;
+    top: -1px;
+    height: 10px;
+    width: 10px;
+    border-radius: 8px;
+    background-color: #07be6f;    
+    transition: 1s linear;
+}
+.dot::before{
+    content: '';
+    position: absolute;
+    top: -1px;
+    height: 10px;
+    width: 10px;
+    border-radius: 8px;
+    background-color: #07be6f;    
+    transition: 1s linear;
+}
+.bar input{
+    position: absolute;
+    width: 35%;
+    height: 4px;
+    opacity: 0;
+}
+.vol{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.vol-icon{
+    margin-right: 8px;
+    font-size: 25px;
+    color: #E8F1F2;
+}
+.vol-bar{
+    position: relative;
+    width: 100px;
+    height: 4px;
+    background-color: #31493C;
+}
+.dot-vol{
+    height: 10px;
+    width: 10px;
+    border-radius: 8px;
+    background-color: #07be6f;    
+    transition: 1s linear;
+}
+.dot-vol::before{
+    content: '';
+    height: 10px;
+    width: 10px;
+    border-radius: 8px;
+    background-color: #07be6f;    
+    transition: 1s linear;
+}
+.vol input{
+    position: absolute;
+    opacity: 0;
+}
