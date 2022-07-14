@@ -1,97 +1,32 @@
-/* 
-
-let songPlay = document.getElementById('songPlay');
-let next = document.getElementById('next');
-let previous = document.getElementById('previous');
-
-
-
-
-const songs = [
-    {
-        id: '1',
-        songName: 'Song-1',
-        artist: 'Artist-1',
-        poster: 'img-example.png',
-        audio: 'example.mp3'
-    },
-    {
-        id: '2',
-        songName: 'Song-2',
-        artistName: 'Artist-2',
-        poster: 'img-example.png',
-        audio: 'example.mp3'
-    }
-]
-
-let index = 0;  
-
-let artistName = document.getElementById('song-artist');
-console.log(artistName)
-artistName = songs[index].artist;
-console.log(artistName);
-
-
-const music = new Audio (songs[index].audio);   
-
-songPlay.addEventListener('click', () => {
-    if (music.paused || music.currentTime <= 0) {
-        music.play();
-        songPlay.classList.remove('fa-circle-play');
-        songPlay.classList.add('fa-circle-pause');
-    } else {
-        music.pause();
-        songPlay.classList.add('fa-circle-play');
-        songPlay.classList.remove('fa-circle-pause');
-    }
-})
-next.addEventListener('click', () => {
-    console.log('apretaste siguiente');
-})
-previous.addEventListener('click', () => {
-    console.log('apretaste anterior');
-})
-
-Array.from (document.getElementsByClassName('track')).forEach((element, i) => {
-    element.getElementsByTagName('img')[0].src = songs[i].poster;
-    element.getElementsByTagName('h5')[0].innerHTML = songs[i].songName;
-});
-
-
-let title = document.getElementsByClassName('song-info');
-Array.from(document.getElementsByClassName('songs')).forEach((element) => {
-    element.addEventListener('click', (e) => {
-        index = e.target.id;
-        music.src = `audio/${index}.mp3`;
-        music.play();
-    });
-
-}) */
-
 //Player
 const play = document.querySelector('.fa-circle-play');
 const foward = document.querySelector('.fa-forward-step');
 const previous = document.querySelector('.fa-backward-step');
 
-// Song Info
+// Playlist
  const trackImg = document.querySelector('.song-img');
  const songName = document.querySelector('.song-name');
  const songArtist = document.querySelector('.song-artist');
+ const songs = document.querySelector('.songs');
+
+ //Player Info
+ const playerArtistName = document.querySelector('.playerArtistName')
+ const playerSongName = document.querySelector('.playerSongName')
 
  //Volume
  const volumeRange = document.querySelector('.vol-bar');
- const volumeDot = document.querySelector('#volDot');
-
+ const volumeDot = document.querySelector('.dot-vol');
+ const mute = document.querySelector('.fa-volume-high');
+ const volumeIcon = document.querySelector('.fa-volume-high');
+ const volValue = document.querySelector('#actualVol');
+ 
+ 
  //Duration
- const duration = document.querySelector('#bar2');
+ const durationBar = document.querySelector('.bar2');
  const durationDot = document.querySelector('.dot');
  const timeStar = document.querySelector('#currentStart');
  const timeEnd = document.querySelector('#currentEnd');
 
-
-
- //Autoplay
- const autoPlay = document.querySelector('.playAll');
 
 
 //Global Variables
@@ -101,25 +36,167 @@ let i = 0;
 let songIsPlaying = false;
 let track = document.createElement('audio');
 
-//
+//Events
 play.addEventListener("click", playPause);
+foward.addEventListener("click", nextSong);
+previous.addEventListener("click", previousSong); 
+track.addEventListener("ended", nextSong);
+mute.addEventListener("click", muteSong);
+volumeRange.addEventListener("change", changeVolume);
+volumeDot.addEventListener("change", changeVolume);
+durationBar.addEventListener("change", changeDuration);
+
 
 // Load Tracks 
 function loadTrack(i) {
     track.src = tracklist[i].path;
-    trackImg.src = tracklist[i].img;
-    songName.innerHTML = tracklist[i].name;
-    songArtist.innerHTML = tracklist[i].artist;
+   // trackImg.src = tracklist[i].img;
+    playerSongName.innerHTML = tracklist[i].name;
+    playerArtistName.innerHTML = tracklist[i].artist;
+
+
     track.load();
+
+    timer = setInterval(seekUpdate, 1000);
 }
 loadTrack(i);
 
-//Play Song
+function seekUpdate() {
+    let seekPosition = 0;
+    
+    // Check if the current track duration is a legible number
+    if (!isNaN(track.duration)) {
+        seekPosition = track.currentTime * (100 / track.duration);
+        durationDot.value = seekPosition;
+        durationBar.value = seekPosition;
+    
+        // Calculate the time left and the total duration
+        let currentMinutes = Math.floor(track.currentTime / 60);
+        let currentSeconds = Math.floor(track.currentTime - currentMinutes * 60);
+        let durationMinutes = Math.floor(track.duration / 60);
+        let durationSeconds = Math.floor(track.duration - durationMinutes * 60);
+    
+        // Add a zero to the single digit time values
+        if (currentSeconds < 10) { currentSeconds = "0" + currentSeconds; }
+        if (durationSeconds < 10) { durationSeconds = "0" + durationSeconds; }
+        if (currentMinutes < 10) { currentMinutes = "0" + currentMinutes; }
+        if (durationMinutes < 10) { durationMinutes = "0" + durationMinutes; }
+    
+        // Display the updated duration
+        timeStar.textContent = currentMinutes + ":" + currentSeconds;
+        timeEnd.textContent = durationMinutes + ":" + durationSeconds;
+    }
+    }
 function playPause() {
+    if (songIsPlaying == false) {
+        playSong();
+    } else {
+        pauseSong();
+    }
+}
+//Play Song
+function playSong() {
     track.play();
     songIsPlaying = true;
     play.classList.remove('fa-circle-play');
     play.classList.add('fa-circle-pause');
 }
 
+//Pause Song
+function pauseSong() {
+    track.pause();
+    songIsPlaying = false;
+    play.classList.remove('fa-circle-pause');
+    play.classList.add('fa-circle-play');
+}
 
+
+
+//Next Song
+function nextSong() {
+    if (i < tracklist.length - 1) {
+        i++;
+        loadTrack(i);
+        playPause();
+    } else {
+        i = 0;
+        loadTrack(i);
+        playPause();
+    }
+}
+function previousSong() {
+    if (i > 0) {
+        i--;
+        loadTrack(i);
+        playPause();
+    } else {
+        i = tracklist.list - 1;
+        loadTrack(i);
+        playPause();
+    }
+}
+
+//MuteVolume
+function muteSong() {
+    track.volume = 0;
+    volumeIcon.classList.remove('fa-volume-high');
+    volumeIcon.classList.add('fa-volume-low');
+    actualVol.value = 0;
+}
+
+function changeVolume() {
+    track.volume = volumeBar.value / 100;
+
+}
+
+function changeDuration() {
+    let durationPosition = track.duration * (durationBar.value / 100);
+    track.currentTime = durationPosition;
+    durationBar.innerHTML = track.currentTime;
+    durationDot.innerHTML = track.currentTime;
+    timeEnd.textContent = durationPosition;
+
+}
+
+function resetValues() {
+    timeStar.textContent = "00:00";
+    timeEnd.textContent = "00:00";
+    durationDot.value = 0;
+    durationDot.innerHTML = 0;
+    }
+
+
+    //trackImg songName songArtist
+
+    function playlistShow() {
+        for(let x = 0; x < tracklist.length; x++ ) {
+            let infoDiv = document.createElement('div');
+            infoDiv.classList.add('track');
+            infoDiv.innerHTML = `
+            <div class="track">
+                        <img src="${tracklist[x].img}" class="song-img">
+                        <div class="song-info">
+                            <h5 class="song-name">${tracklist[x].name}</h6>
+                            <h6 class="song-artist">${tracklist[x].artist}</h6>
+                        </div>
+                    </div>
+            `
+            songs.appendChild(infoDiv);
+        }
+        playFromPlaylist();
+    }
+    playlistShow();
+
+   function playFromPlaylist() {
+        songs.addEventListener('click', (e) => {
+             if(e.target.classList.contains('song-name')) {
+                const songPosition = tracklist.findIndex((item, index) => {
+                    if(item.name === e.target.innerHTML){
+                        return true;
+                    }
+                });
+                loadTrack();
+                playPause();
+             }
+        });
+    }

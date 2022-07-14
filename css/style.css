@@ -254,6 +254,7 @@ span:hover{
 .song-img{
     width: 100px;
     height: 100px;
+    margin-left: 10px;
 }
 .song-info{
     flex-direction: column;
@@ -277,6 +278,9 @@ span:hover{
 .player-icons{
     font-size: 35px;
     color: #E8F1F2;
+}
+.fa-backward-step:hover, .fa-circle-play:hover, .fa-forward-step:hover{
+    color: #001A23;
 }
 .player-info{
     color: var(--text);
